@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Task;
 
+use Log;
+
 use App\Http\Requests;
 
 class TaskController extends Controller
@@ -16,10 +18,12 @@ class TaskController extends Controller
     }
 
     public function show(Task $task) {
+        Log::info('show task', [$task]);
         return $task->name;
     }
 
 	public function create(Task $task) {
+        Log::info('show task', [$task]);
         return view('tasks.create', compact('task'));
 	}
 
@@ -38,7 +42,10 @@ class TaskController extends Controller
     }
 
     public function update($id, Request $request) {
+        Log::info('request send from: ', [$request->ip()]);
         $task = Task::findOrFail($id);
+        Log::warning('task edited: ', [$task->toJson()]);
+
 //        return $request['name'];
         $this->validate($request, [
             'name' => 'required',

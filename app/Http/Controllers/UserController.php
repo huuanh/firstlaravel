@@ -14,13 +14,18 @@ use Cache;
 
 use Illuminate\Support\Facades\DB;
 
+use App\Exceptions;
+
+use Exception;
+//use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+
 class UserController extends Controller
 {
     //
     public function index() {
         $users = User::all(); //('first_name, last_name, email');
         $value = Cache::get('key');
-        trace_log();
+        Log::debug('Cache::get(key): ', [$value]);
 //        $users = User::all([first_name, last_name, email]);
         return view('users.index', compact('users'));
     }
@@ -39,9 +44,9 @@ class UserController extends Controller
         Log::notice($error);
         try {
             Log::info(Db::table('users')->count());
-//            throw new Exception();
+            throw new Exception();
         } catch(exception $e) {
-            trace_log($e);
+            Log::info($e);
         }
         Log::debug($error);
 

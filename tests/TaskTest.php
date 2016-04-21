@@ -35,6 +35,10 @@ class TaskTest extends TestCase
             ->press('Create Task')
             ->See('This is index page!!')
             -> seePageIs('/task');
+
+        $this->visit('task/create')
+            -> press('Create Task')
+            -> See('name field is required');
     }
 
     public function testEditTask() {

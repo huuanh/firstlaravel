@@ -14,5 +14,4 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('awesome'),
         ));
     }
-
 }
